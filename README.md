@@ -1,6 +1,6 @@
 Proyecto en arquitectura limpia
 
-Es un proyecto que implementa una arquitectura limpia utilizando CQRS, MediatR, Mapper, Unit of Work, Repository pattern y .Net Core 6.
+Es un proyecto que implementa una arquitectura limpia utilizando CQRS, MediatR, Mapper, Unit of Work, Repository pattern, .Net Core 6 y Sql Server.
 
 El objetivo del proyecto es organizar el código de forma que sea fácil de mantener, reutilizar y adaptar a diferentes tecnologías. Con clean architecture, se separan las responsabilidades de cada capa del software, 
 se siguen los principios SOLID y se enfoca en el dominio del problema y no en los detalles de implementación. 
