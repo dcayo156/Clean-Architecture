@@ -35,7 +35,8 @@ namespace CleanArchitecture.API.Controllers
                 Id = Guid.NewGuid(),
                 NameOperation = "Request operation"
             };
-            await _producer.ProduceAsync("operation", new Message<Null, string> { Value = JsonSerializer.Serialize(messageOperation) });
+            await ConnnectWithKafka(messageOperation);
+
             return result;
         }
 
@@ -52,7 +53,8 @@ namespace CleanArchitecture.API.Controllers
                 Id = Guid.NewGuid(),
                 NameOperation = "Modify operation"
             };
-            await _producer.ProduceAsync("operation", new Message<Null, string> { Value = JsonSerializer.Serialize(messageOperation) });
+            await ConnnectWithKafka(messageOperation);
+
             return NoContent();
         }
 
@@ -68,8 +70,19 @@ namespace CleanArchitecture.API.Controllers
                 Id = Guid.NewGuid(),
                 NameOperation = "Get operation"
             };
-            await _producer.ProduceAsync("operation", new Message<Null, string> { Value = JsonSerializer.Serialize(messageOperation) });
+            await ConnnectWithKafka(messageOperation);
             return Ok(videos);
+        }
+        private async Task ConnnectWithKafka(OperationDto messageOperation)
+        {
+            try
+            {
+               await _producer.ProduceAsync("operation", new Message<Null, string> { Value = JsonSerializer.Serialize(messageOperation) });
+            }
+            catch (ProduceException<Null, string> ex)
+            {
+                _logger.LogError($"Kafka server is not available: {ex.Error.Reason}");
+            }
         }
     }
 }
