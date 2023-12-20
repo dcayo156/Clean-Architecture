@@ -42,16 +42,14 @@ builder.Services.AddSingleton<IProducer<Null, string>>(sp =>
 {
     var config = new ProducerConfig() 
     {
-        BootstrapServers = "localhost:9092"
+        BootstrapServers = "localhost:9092",
+        RequestTimeoutMs = 500,
+        MessageTimeoutMs = 500,
     };   
     //configuration.GetSection("Producer").Bind(config);
     return new ProducerBuilder<Null, string>(config).Build();
 });
-//builder.Services.AddLogging(builder =>
-//{
-//    builder.ClearProviders();
-//    builder.AddSerilog();
-//});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
